@@ -1,32 +1,30 @@
 import sys
-
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
 import argparse
 
-from main import container
-from app.models.animal import Animal
+from app.core.container import Container
+from app.core.database import Database
+from app.core.config import config
 
 from scripts import dump_data, load_data
 
-animal_servises = container.get_animal_service()
+database = Database(config.database.database_url())
+container = Container(database.get_db())
+animal_service = container.get_animal_service()
 
 
 def add_test_animals(amount: int = 10) -> None:
     data = [
-        Animal(
+        dict(
             name=f"test_animal_{i}",
             description=f"test_animal_description_{i}",
         )
         for i in range(1, amount + 1)
     ]
-    animal_servises.add_all(data)
+    animal_service.add_all(data)
 
 
 def clear_db() -> None:
-    animal_servises.delete_all()
+    animal_service.delete_all()
 
 
 def main():
@@ -65,9 +63,9 @@ def main():
             add_test_animals()
             print("\n ✅ В базу добавленно 10 тестовых животных.\n")
     if args.dump:
-        dump_data.dump_all(animal_servises)
+        dump_data.dump_all(animal_service)
     if args.load:
-        load_data.load_all(animal_servises)
+        load_data.load_all(animal_service)
     if args.clear:
         clear_db()
         print("\n ✅ База данных очищена.\n")

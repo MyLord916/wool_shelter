@@ -14,46 +14,27 @@ class PathConfig:
     # Директории данных
     DATA_DIR = BASE_DIR / "data"
     FIXTURES_DIR = PROJECT_DIR / "fixtures"
-    MIGRATIONS_DIR = PROJECT_DIR / "tag"
+    MIGRATIONS_DIR = PROJECT_DIR / "migrations"
+    TEST_DIR = PROJECT_DIR / "tests"
 
-    MODELS_DIR = PROJECT_DIR / "models"
-    SCHEMAS_DIR = PROJECT_DIR / "schemas"
+    # Прочие директории
+    MODELS_DIR = PROJECT_DIR / "models"  # Модели
+    SCHEMAS_DIR = PROJECT_DIR / "schemas"  # Схемы валидации
     SERVISES_DIR = PROJECT_DIR / "services"  # Бизнес-логика
-    # ├── api/                  # Веб-интерфейс
     REPOSITORIES_DIR = PROJECT_DIR / "repositories"  # Работа с данными
     FRONTEND_DIR = PROJECT_DIR / "frontend"
+    # ├── api/                  # Веб-интерфейс
     # ├── utils/                # Вспомогательные функции
     # ├── config/               # Конфигурация
-    TEST_DIR = PROJECT_DIR / "tests"  # Тесты
     # ├── scripts/              # Скрипты управления
     # ├── migrations/           # Миграции базы данных
     # └── docs/
 
+    # Функциональные файлы
     DATABASE_FILE = DATA_DIR / "shelter.db"
     TEST_DATABSE_FILE = TEST_DIR / "test.db"
     FIXTURES_FILE = FIXTURES_DIR / "all_data.json"
-
     ENV_FILE = BASE_DIR / ".env"
-
-    @classmethod
-    def setup_directories(cls):
-        """Создает все необходимые директории"""
-        directories = [
-            cls.DATA_DIR,
-            cls.FIXTURES_DIR,
-            cls.MODELS_DIR,
-            cls.SCHEMAS_DIR,
-            cls.SERVISES_DIR,
-            cls.REPOSITORIES_DIR,
-        ]
-
-        for directory in directories:
-
-            directory.mkdir(parents=True, exist_ok=True)
-            init_file = directory / "__init__.py"
-            init_file.touch(exist_ok=True)
-
-        print(f"Директории созданы в: {cls.BASE_DIR}")
 
 
 class DatabaseConfig:
@@ -70,7 +51,6 @@ class DatabaseConfig:
 
 
 class JWTConfig:
-    load_dotenv(PathConfig.ENV_FILE)
     SECRET_KEY = os.getenv("SECRET_KEY")
     ALGORITHM = os.getenv("ALGORITHM")
     ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
@@ -88,6 +68,7 @@ class JWTConfig:
 class AppConfig:
     """Основная конфигурация приложения"""
 
+    load_dotenv(PathConfig.ENV_FILE)
     APP_NAME = "Wool Shelter"
     DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
@@ -95,10 +76,6 @@ class AppConfig:
         # Инициализируем пути
         self.paths = PathConfig()
         self.database = DatabaseConfig()
-
-    # # Создаем директории при инициализации
-    # if not os.getenv("TESTING"):
-    #     self.paths.setup_directories()
 
 
 # Создаем глобальный экземпляр конфигурации

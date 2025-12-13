@@ -4,7 +4,6 @@ from sqlalchemy import create_engine, Integer, func
 from sqlalchemy.orm import (
     sessionmaker,
     DeclarativeBase,
-    declared_attr,
     Mapped,
     mapped_column,
 )
@@ -13,12 +12,10 @@ from sqlalchemy.orm import (
 class Database:
     def __init__(self, db_url: str):
         self.engine = create_engine(db_url, echo=True)
-        self.SessionLocal = sessionmaker(
-            autocommit=False, autoflush=False, bind=self.engine
-        )
+        self.session = sessionmaker(bind=self.engine)
 
     def get_db(self):
-        db = self.SessionLocal()
+        db = self.session()
         try:
             yield db
         finally:
@@ -33,7 +30,3 @@ class Base(DeclarativeBase):
     updated_at: Mapped[datetime] = mapped_column(
         server_default=func.now(), onupdate=func.now()
     )
-
-    @declared_attr.directive
-    def __tablename__(cls) -> str:
-        return cls.__name__.lower() + "s"

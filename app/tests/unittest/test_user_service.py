@@ -3,8 +3,8 @@ from contextlib import nullcontext as does_not_raise
 
 from pydantic_core._pydantic_core import ValidationError
 
-from schemas.user import UserCreate, UserUpdate
-from services.user_services import UserService
+from app.schemas.user import UserCreate, UserUpdate
+from app.services.user_services import UserService
 
 
 @pytest.mark.usefixtures("test_user_service")

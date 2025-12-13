@@ -3,8 +3,8 @@ from contextlib import nullcontext as does_not_raise
 
 from pydantic_core._pydantic_core import ValidationError
 
-from schemas.animal import AnimalCreate, AnimalUpdate
-from services.animal_services import AnimalService
+from app.schemas.animal import AnimalCreate, AnimalUpdate
+from app.services.animal_services import AnimalService
 
 
 @pytest.mark.usefixtures("test_animal_service")

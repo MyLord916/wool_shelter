@@ -1,8 +1,8 @@
 import pytest
 from datetime import date
 
-from core.container import Container
-from core.database import Database
+from app.core.container import Container
+from app.core.database import Database
 
 
 @pytest.fixture(scope="module")

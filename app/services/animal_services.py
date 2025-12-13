@@ -29,6 +29,9 @@ class AnimalService:
         getter_animal = self.animal_repo.get_animal_by_id(animal_id)
         return AnimalResponse.model_validate(getter_animal)
 
+    def get_animals_for_dump(self) -> Optional[List[Animal]]:
+        return self.animal_repo.get_all_animals()
+
     def add_all(self, animals: list[AnimalCreate]) -> None:
         self.animal_repo.add_all_animals(animals)
 

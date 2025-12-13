@@ -1,10 +1,3 @@
-# import sys
-# from pathlib import Path
-
-# sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from datetime import date
-
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -12,6 +5,7 @@ from app.core.database import Base
 
 
 class User(Base):
+    __tablename__ = "users"
 
     username: Mapped[str]
     password_hash: Mapped[str]

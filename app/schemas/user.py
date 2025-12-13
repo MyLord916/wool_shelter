@@ -1,9 +1,4 @@
-# import sys
-# from pathlib import Path
-
-# sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from pydantic import BaseModel, Field, field_validator, model_validator, ConfigDict
+from pydantic import BaseModel, Field, field_validator, ConfigDict
 from typing import Optional
 
 

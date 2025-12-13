@@ -1,4 +1,3 @@
-from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate, UserResponse
 from app.repositories.user_repo import UserRepository
 

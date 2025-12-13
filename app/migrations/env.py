@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.models.animal import Animal
 from app.core.database import Base
-from core.config import config as app_config
+from app.core.config import config as app_config
 
 target_metadata = Base.metadata
 config.set_main_option("sqlalchemy.url", app_config.database.database_url())

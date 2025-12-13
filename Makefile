@@ -85,7 +85,7 @@ restart: clean dev-install migrate run
 
 # Управление базой данных
 SCRIPTS_DIR = scripts
-SCRIPT_FILE = $(SCRIPTS_DIR)/db_control.py
+SCRIPT_FILE = $(SCRIPTS_DIR).db_control
 
 .PHONY: db-comands db-add-test-animals db-dump db-load db-clear
 
@@ -102,19 +102,19 @@ db-commands:
 	@echo
 
 db-add-test-animals:
-	$(UV) run $(PYTHON) $(SCRIPT_FILE) -a $(if $(filter-out 10,$(count)),-t $(count))
+	$(UV) run $(PYTHON) -m $(SCRIPT_FILE) -a $(if $(filter-out 10,$(count)),-t $(count))
 
 db-dump:
-	$(UV) run $(PYTHON) $(SCRIPT_FILE) -d
+	$(UV) run $(PYTHON) -m $(SCRIPT_FILE) -d
 
 db-load:
-	$(UV) run $(PYTHON) $(SCRIPT_FILE) -l
+	$(UV) run $(PYTHON) -m $(SCRIPT_FILE) -l
 
 db-clear:
 	@echo "⚠️  Вы уверены, что хотите очистить базу данных? [y/N]"; \
     read answer; \
     if [ "$$answer" = "y" ] || [ "$$answer" = "Y" ]; then \
-        $(UV) run $(PYTHON) $(SCRIPT_FILE) -c;\
+        $(UV) run $(PYTHON) -m $(SCRIPT_FILE) -c;\
     else \
 		echo " "; \
         echo "❌ Операция отменена"; \

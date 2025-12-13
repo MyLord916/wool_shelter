@@ -2,7 +2,6 @@ import jwt
 from datetime import datetime
 from typing import Optional
 
-# from app.repositories.user_repo import UserRepository
 from app.schemas.user import UserLogin, UserResponse, UserCreate, LoginResponse
 from app.core.config import JWTConfig
 from app.utils.security import PasswordMixin
